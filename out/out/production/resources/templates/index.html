@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Movie Store</title>
+
+    <link rel="stylesheet" type="text/css" href="../static/css/index.css" th:href="@{/css/index.css}"/>
+
+</head>
+<body>
+
+<button class="changeStyleBackground">Black</button>
+
+<h2>Movie Store Application</h2>
+
+<button>All</button>
+<button>Watching</button>
+<button>Watched</button>
+ <!--change sides after click-->
+
+    <form action="addMovie">
+        <input type="submit" value="add movie">
+    </form>
+
+
+<h2>Watching</h2>
+<table class="table1" id="myTable" border="1" width="350">
+    <tr>
+        <th width="50" valign="top">
+            <a>Id</a>
+            <button onclick="sortTable(0)">Sort</button>
+        </th>
+        <th width="200">
+            <a>Name</a>
+            <button onclick="sortTable(1)">Sort</button>
+        </th>
+        <th width="100">
+            <a>Scored</a>
+            <button onclick="sortTable(2)">Sort</button>
+        </th>
+        <th witdth="100">
+            <a>Edit</a>
+        </th>
+        <th witdth="100">
+            <a>Delete</a>
+        </th>
+    </tr>
+
+    <tr th:each="watchingMovie: ${watchingMovie}">
+        <td width="50" th:text="${watchingMovie.id}" id="slot">
+
+        </td>
+
+        <td width="200" th:text="${watchingMovie.name}">
+
+        </td>
+
+        <td width="100" th:text="${watchingMovie.rate}">
+
+        </td>
+
+        <td>
+            <a th:href="@{/edit/{id}/(id=${watchingMovie.id})}">Edit</a>
+        </td>
+
+        <td>
+            <a>Delete</a>
+        </td>
+
+    </tr>
+
+</table>
+
+<h2>Watched</h2>
+<table border="1" width="350">
+    <tr>
+        <th width="50" valign="top">
+            <a>Id</a>
+            <button onclick="sortTable(0)">Sort</button>
+        </th>
+        <th width="200">
+            <a>Name</a>
+            <button onclick="sortTable(1)">Sort</button>
+        </th>
+        <th width="100">
+            <a>Scored</a>
+            <button onclick="sortTable(2)">Sort</button>
+        </th>
+        <th witdth="100">
+            <a>Edit</a>
+        </th>
+        <th witdth="100">
+            <a>Delete</a>
+        </th>
+    </tr>
+
+    <tr th:each="watchedMovie: ${watchedMovie}">
+        <td width="50" th:text="${watchedMovie.id}">
+
+        </td>
+
+        <td width="200" th:text="${watchedMovie.name}">
+
+        </td>
+
+        <td width="100" th:text="${watchedMovie.rate}">
+
+        </td>
+
+        <td>
+            <a th:href="@{/edit/{id}/(id=${watchedMovie.id})}">Edit</a>
+        </td>
+
+        <td>
+            <a>Delete</a>
+        </td>
+    </tr>
+</table>
+
+<h2>Plan to Watch</h2>
+
+<table border="1" width="350" id="table3">
+    <tr>
+        <th width="50" valign="top">
+            <a>Id</a>
+            <button onclick="sortTable(0)">Sort</button>
+        </th>
+        <th width="200">
+            <a>Name</a>
+            <button onclick="sortTable(1)">Sort</button>
+        </th>
+        <th width="100">
+            <a>Scored</a>
+            <button onclick="sortTable(2)">Sort</button>
+        </th>
+        <th witdth="100">
+            <a>Edit</a>
+        </th>
+        <th witdth="100">
+            <a>Delete</a>
+        </th>
+    </tr>
+
+    <tr th:each="planToWatchMovie: ${planToWatchMovie}">
+        <td width="50" th:text="${planToWatchMovie.id}">
+
+        </td>
+
+        <td width="200" th:text="${planToWatchMovie.name}">
+
+        </td>
+
+        <td width="100" th:text="${planToWatchMovie.rate}">
+
+        </td>
+
+        <td>
+            <a th:href="@{/edit/{id}/(id=${planToWatchMovie.id})}">Edit</a>
+        </td>
+
+        <td>
+            <a>Delete</a>
+        </td>
+</table>
+
+
+<h2>Dropped</h2>
+<table border="1" width="350">
+    <tr>
+        <th width="50" valign="top">
+            <a>Id</a>
+            <button onclick="sortTable(0)">Sort</button>
+        </th>
+        <th width="200">
+            <a>Name</a>
+            <button onclick="sortTable(1)">Sort</button>
+        </th>
+        <th width="100">
+            <a>Scored</a>
+            <button onclick="sortTable(2)">Sort</button>
+        </th>
+        <th witdth="100">
+            <a>Edit</a>
+        </th>
+        <th witdth="100">
+            <a>Delete</a>
+        </th>
+    </tr>
+
+    <tr th:each="droppedMovie: ${droppedMovie}">
+        <td width="50" th:text="${droppedMovie.id}">
+
+        </td>
+
+        <td width="200" th:text="${droppedMovie.name}">
+
+        </td>
+
+        <td width="100" th:text="${droppedMovie.rate}">
+
+        </td>
+
+        <td>
+            <a th:href="@{/edit/{id}/(id=${droppedMovie.id})}">Edit</a>
+        </td>
+
+        <td>
+            <a>Delete</a>
+        </td>
+    </tr>
+
+</table>
+
+
+<script>
+
+    var table = document.getElementsByTagName('table')[0],
+    rows = table.getElementsByTagName('tr'),
+    text = 'textContent' in document ? 'textContent' : 'innerText';
+
+for (var i = 1, len = rows.length; i < len; i++){
+    rows[i].children[0][text] = i ;
+}
+
+ var table2 = document.getElementsByTagName('table')[0],
+ rows2 = table2.getElementByTagName('tr');
+
+ for(var i = 1, len = rows2.length; i < len; i++){
+     rows2[i].children[0][text] = i;
+ }
+
+
+  var table3 = document.getElementsById('table3')[2],
+ rows3 = table3.getElementByTagName('tr');
+
+ for(var i = 1, len = rows3.length; i < len; i++){
+     rows3[i].children[0][text] = i;
+ }
+
+</script>
+
+
+</body>
+</html>

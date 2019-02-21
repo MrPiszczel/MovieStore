@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+
+    <title>spring mvc</title>
+</head>
+<body>
+
+EDIT MOVIE PAGE
+
+<form th:action="@{/edit/update}" method="get">
+<table>
+    <tr>
+        <td>Title: </td>
+        <td>
+            <!--<a th:text="${movie.name}" th:name="name"></a>-->
+            <input type="text" th:value="${movie.name}" name="name" readonly></input>
+        </td>
+    <tr>
+
+    <tr>
+        <td>Rate: </td>
+        <td th:text="${movie.rate}" >
+
+        </td>
+        <td>New Rate: </td>
+        <td>
+            <select name="newRate">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td>Status: </td>
+        <td th:text="${movie.status}"></td>
+        <td>New Status: </td>
+        <td>
+            <select name="newStatus">
+                <option>Watching</option>
+                <option>Watched</option>
+                <option>PlanToWatch</option>
+                <option>Dropped</option>
+            </select>
+        </td>
+    </tr>
+</table>
+    <input type="submit" value="Accept">
+</form>
+
+</body>
+</html>

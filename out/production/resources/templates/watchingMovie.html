@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="UTF-8">
+    <title>Movie Store</title>
+
+    <link href="../static/css/watchingMovie.css" th:href="@{/css/watchingMovie.css}" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+
+
+
+<div id="page">
+
+<div id="nav">
+    <ul id='menu'>
+        <li class="option">
+            <a class="option_1" id="all" th:href="@{/}">All</a>
+            <a class="option_2" id="all2" th:href="@{/}">All</a>
+        </li>
+        <li class="option_s">
+            <a class="option_1" id="watchingMovie">Watching</a>
+            <a class="option_2" id="watchingMovie2">Watching</a>
+        </li>
+        <li class="option">
+            <a class="option_1" id="watchedMovie" th:href="@{/watchedMovie}">Watched</a>
+            <a class="option_2" id="watchedMovie2" th:href="@{/watchedMovie}">Watched</a>
+        </li>
+    </ul>
+</div>
+
+
+<table class="table1" id="myTable" border="1" width="350">
+    <h3>Watching</h3>
+    <tr>
+        <th width="50" valign="top">
+            <a>Id</a>
+            <button onclick="sortTable(0)">Sort</button>
+        </th>
+        <th width="200">
+            <a>Name</a>
+            <button onclick="sortTable(1)">Sort</button>
+        </th>
+        <th width="100">
+            <a>Scored</a>
+            <button onclick="sortTable(2)">Sort</button>
+        </th>
+        <th witdth="100">
+            <a>Edit</a>
+        </th>
+        <th witdth="100">
+            <a>Delete</a>
+        </th>
+    </tr>
+
+    <tr th:each="watchingMovie: ${watchingMovie}">
+        <td width="50" th:text="${watchingMovie.id}" id="slot">
+
+        </td>
+
+        <td width="200" th:text="${watchingMovie.name}">
+
+        </td>
+
+        <td width="100" th:text="${watchingMovie.rate}">
+
+        </td>
+
+        <td>
+            <a th:href="@{/edit/{id}/(id=${watchingMovie.id})}">Edit</a>
+        </td>
+
+        <td>
+            <a href="#" th:href="@{/delete/{id}/(id=${watchingMovie.id})}" >Delete</a>
+        </td>
+
+    </tr>
+
+</table>
+</div>
+    <script>
+        var all = $('#' + 'all');
+        var watchingMovie = $('#' + 'watchingMovie');
+        var watchedMovie = $('#' + 'watchedMovie');
+
+        var all2 = $('#' + 'all2');
+        var watchingMovie2 = $('#' + 'watchingMovie2');
+        var watchedMovie2 = $('#' + 'watchedMovie2');
+
+        var option_s = $(".option_s");
+
+        $('.option').mouseover(function() {
+          $(this).find('.option_1').hide();
+            <!--$(option_s).find(".option_1").hide();-->
+        })
+        .mouseout(function() {
+            $(this).find(".option_1").show();
+            <!--$(option_s).find(".option_1").show();-->
+        });
+
+
+
+        $(all2).mouseover(function(){
+
+            $(this).css("background", "#808080");
+            $(watchingMovie2).css("background", "#2f3036");
+            $(watchedMovie2).hover().css("background", "#2f3036");
+        });
+
+        $(watchingMovie2).mouseover(function(){
+
+            $(all2).css("background", "#2f3036");
+            $(this).css("background", "#808080");
+            $(watchedMovie2).hover().css("background", "#2f3036");
+        });
+
+        $(watchedMovie2).mouseover(function(){
+
+            $(all2).css("background", "#2f3036");
+            $(watchingMovie2).css("background", "#2f3036");
+            $(this).hover().css("background", "#808080");
+        });
+    </script>
+
+</body>
+</html>

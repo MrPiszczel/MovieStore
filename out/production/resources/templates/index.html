@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Movie Store</title>
+
+    <link href="../static/css/index.css" th:href="@{/css/index.css}" rel="stylesheet" />
+    <!--<script type="text/javascript" th:src="@{/js/index.js}"/>-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <style>
+
+        body{
+background-color: lightblue;
+}
+
+                                                  /* Tabelka */
+
+#tables{
+width:50%;
+margin: 0 auto;
+}
+
+text-align: center;
+}
+
+.table{
+ margin: 0 auto;
+}
+
+                                                 /* Pasek nawigacji */
+
+ul{
+    list-style-type: non;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+}
+
+li{
+    display: inline-block;
+    float:left;
+    margin-right: 1px;
+}
+
+li a{
+    display:block;
+    min-width: 140px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #fff;
+    background: #2f3036;
+    text-decoration: none;
+}
+
+#all {
+    background: #7FFF00;
+    color: #FFFFFF;
+}
+
+.option_1{
+    position: absolute;
+}
+
+
+input[type=checkbox]{
+    display: none;
+}
+
+input[type=checkbox]:checked ~ #menu {
+    display: block;
+}
+
+.show-menu {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        text-decoration: none;
+        color: #fff;
+        background: #19c589;
+        text-align: center;
+        padding: 10px 0;
+        display: none;
+    }
+
+
+@media screen and (max-width: 760px) {
+    ul{
+      position: static;
+      display:none;
+    }
+
+    li{
+          margin-bottom: 1px;
+    }
+
+    ul li, li a {
+          width: 100%
+    }
+
+
+    .show-menu {
+          display: block;
+    }
+
+    body {
+          background-image: none;
+    }
+
+}
+
+    </style>
+
+</head>
+<body>
+
+<div id="page">
+
+    <div id="nav">
+
+        <label for='show-menu' class='show-menu'>Show Menu</label>
+        <input type='checkbox' id='show-menu' role='button' >
+
+        <ul id='menu'>
+            <li class="option_s">
+                <a class="option_1" id="all">All</a>
+                <a class="option_2" id="all2">All</a>
+            </li>
+            <li class="option">
+                <a class="option_1" id="watchingMovie" th:href="@{/watchingMovie}">Watching</a>
+                <a class="option_2" id="watchingMovie2" th:href="@{/watchingMovie}">Watching</a>
+            </li>
+            <li class="option">
+                <a class="option_1" id="watchedMovie" th:href="@{/watchedMovie}">Watched</a>
+                <a class="option_2" id="watchedMovie2" th:href="@{/watchedMovie}">Watched</a>
+            </li>
+            <li>
+                <a th:href="@{/addMovie}">Add movie</a>
+            </li>
+        </ul>
+    </div>
+
+<div id="tables">
+    <h2>Watching</h2>
+    <table class="table" id="myTable" border="1" width="350">
+
+    <tr>
+        <th width="50" valign="top">
+            <a>Id</a>
+            <button onclick="sortTable(0)">Sort</button>
+        </th>
+        <th width="200">
+            <a>Name</a>
+            <button onclick="sortTable(1)">Sort</button>
+        </th>
+        <th width="100">
+            <a>Scored</a>
+            <button onclick="sortTable(2)">Sort</button>
+        </th>
+        <th witdth="100">
+            <a>Edit</a>
+        </th>
+        <th witdth="100">
+            <a>Delete</a>
+        </th>
+    </tr>
+
+    <tr th:each="watchingMovie: ${watchingMovie}">
+        <td width="50" th:text="${watchingMovie.id}" id="slot">
+
+        </td>
+
+        <td width="200" th:text="${watchingMovie.name}">
+
+        </td>
+
+        <td width="100" th:text="${watchingMovie.rate}">
+
+        </td>
+
+        <td>
+            <a th:href="@{/edit/{id}/(id=${watchingMovie.id})}">Edit</a>
+        </td>
+
+        <td>
+            <a href="#" th:href="@{/delete/{id}/(id=${watchingMovie.id})}" >Delete</a>
+        </td>
+
+    </tr>
+
+</table>
+
+
+<table class="table" border="1" width="350" id="table2">
+    <h2>Watched</h2>
+
+    <tr>
+        <th width="50" valign="top">
+            <a>Id</a>
+            <button onclick="sortTable(0)">Sort</button>
+        </th>
+        <th width="200">
+            <a>Name</a>
+            <button onclick="sortTable(1)">Sort</button>
+        </th>
+        <th width="100">
+            <a>Scored</a>
+            <button onclick="sortTable(2)">Sort</button>
+        </th>
+        <th witdth="100">
+            <a>Edit</a>
+        </th>
+        <th witdth="100">
+            <a>Delete</a>
+        </th>
+    </tr>
+
+    <tr th:each="watchedMovie: ${watchedMovie}">
+        <td width="50" th:text="${watchedMovie.id}">
+
+        </td>
+
+        <td width="200" th:text="${watchedMovie.name}">
+
+        </td>
+
+        <td width="100" th:text="${watchedMovie.rate}">
+
+        </td>
+
+        <td>
+            <a th:href="@{/edit/{id}/(id=${watchedMovie.id})}">Edit</a>
+        </td>
+
+        <td>
+            <a th:href="@{/delete/{id}/(id=${watchedMovie.id})}">Delete</a>
+        </td>
+    </tr>
+</table>
+
+
+
+<table class="table" border="1" width="350" id="table3">
+    <h2>Plan to Watch</h2>
+
+    <tr>
+        <th width="50" valign="top">
+            <a>Id</a>
+            <button onclick="sortTable(0)">Sort</button>
+        </th>
+        <th width="200">
+            <a>Name</a>
+            <button onclick="sortTable(1)">Sort</button>
+        </th>
+        <th width="100">
+            <a>Scored</a>
+            <button onclick="sortTable(2)">Sort</button>
+        </th>
+        <th witdth="100">
+            <a>Edit</a>
+        </th>
+        <th witdth="100">
+            <a >Delete</a>
+        </th>
+    </tr>
+
+    <tr th:each="planToWatchMovie: ${planToWatchMovie}">
+        <td width="50" th:text="${planToWatchMovie.id}">
+
+        </td>
+
+        <td width="200" th:text="${planToWatchMovie.name}">
+
+        </td>
+
+        <td width="100" th:text="${planToWatchMovie.rate}">
+
+        </td>
+
+        <td>
+            <a th:href="@{/edit/{id}/(id=${planToWatchMovie.id})}">Edit</a>
+        </td>
+
+        <td>
+            <a th:href="@{/delete/{id}/(id=${planToWatchMovie.id})}">Delete</a>
+        </td>
+</table>
+
+
+
+<table class="table" border="1" width="350">
+    <h2>Dropped</h2>
+    <tr>
+        <th width="50" valign="top">
+            <a>Id</a>
+            <button onclick="sortTable(0)">Sort</button>
+        </th>
+        <th width="200">
+            <a>Name</a>
+            <button onclick="sortTable(1)">Sort</button>
+        </th>
+        <th width="100">
+            <a>Scored</a>
+            <button onclick="sortTable(2)">Sort</button>
+        </th>
+        <th witdth="100">
+            <a>Edit</a>
+        </th>
+        <th witdth="100">
+            <a>Delete</a>
+        </th>
+    </tr>
+
+    <tr th:each="droppedMovie: ${droppedMovie}">
+        <td width="50" th:text="${droppedMovie.id}">
+
+        </td>
+
+        <td width="200" th:text="${droppedMovie.name}">
+
+        </td>
+
+        <td width="100" th:text="${droppedMovie.rate}">
+
+        </td>
+
+        <td>
+            <a th:href="@{/edit/{id}/(id=${droppedMovie.id})}">Edit</a>
+        </td>
+
+        <td>
+            <a th:href="@{/delete/{id}/(id=${droppedMovie.id})}">Delete</a>
+        </td>
+    </tr>
+
+</table>
+</div>
+
+</div>
+
+<script>
+
+
+var all = $('#' + 'all');
+        var watchingMovie = $('#' + 'watchingMovie');
+        var watchedMovie = $('#' + 'watchedMovie');
+
+        var all2 = $('#' + 'all2');
+        var watchingMovie2 = $('#' + 'watchingMovie2');
+        var watchedMovie2 = $('#' + 'watchedMovie2');
+
+        var option_s = $(".option_s");
+
+        $('.option').mouseover(function() {
+          $(this).find('.option_1').hide();
+            <!--$(option_s).find(".option_1").hide();-->
+        })
+        .mouseout(function() {
+            $(this).find(".option_1").show();
+            <!--$(option_s).find(".option_1").show();-->
+        });
+
+
+
+        $(all2).mouseover(function(){
+
+            $(this).css("background", "#808080");
+            $(watchingMovie2).css("background", "#2f3036");
+            $(watchedMovie2).hover().css("background", "#2f3036");
+        });
+
+        $(watchingMovie2).mouseover(function(){
+
+            $(all2).css("background", "#2f3036");
+            $(this).css("background", "#808080");
+            $(watchedMovie2).hover().css("background", "#2f3036");
+        });
+
+        $(watchedMovie2).mouseover(function(){
+
+            $(all2).css("background", "#2f3036");
+            $(watchingMovie2).css("background", "#2f3036");
+            $(this).hover().css("background", "#808080");
+        });
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+
+    <title>Movie Store</title>
+</head>
+<body>
+
+<form action="saveMovie" th:object="${movie}">
+    <table>
+        <tr>
+            <td>Name</td>
+            <td><!--name="name" th:field="*{confirmName}"-->
+               <input type="text" name="name" >
+            </td>
+
+            <!--<td th:if="${#fields.hasErrors('name')}">NameError</td>-->
+        </tr>
+        <tr>
+            <td>Score</td>
+            <td>
+                <select name="rate">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Status</td>
+            <td>
+                <select name="status">
+                    <option value="Watching">Watching</option>
+                    <option value="Watched">Watched</option>
+                    <option value="PlanToWatch">PlanToWatch</option>
+                    <option value="Dropped">Dropped</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" value="Add">
+            </td>
+        </tr>
+    </table>
+</form>
+
+</body>
+</html>
